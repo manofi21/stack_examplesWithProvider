@@ -1,12 +1,14 @@
 import 'package:card_slash/stacks.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_config/flutter_config.dart';
 import 'SizeConfig.dart';
 import 'feature.dart';
 import 'service/service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
   runApp(MyApp());
 }
 
@@ -19,11 +21,22 @@ class MyApp extends StatelessWidget {
         return OrientationBuilder(
           builder: (context, orientation) {
             SizeConfig().init(constraints, orientation);
-            return MaterialApp(
+            return MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(create: (_) => ListGistProvider()),
+                  FutureProvider(create: (_) => getPost())
+                ],
+                child: MaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: 'HomeScreen App',
                   home: S_tacks(),
-                );
+                  // home: WidgetStatefull(),
+                ));
+            // return MaterialApp(
+            //   debugShowCheckedModeBanner: false,
+            //   title: 'HomeScreen App',
+            //   home: S_tacks(),
+            // );
           },
         );
       },

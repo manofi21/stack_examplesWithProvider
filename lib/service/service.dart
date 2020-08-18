@@ -3,6 +3,17 @@ import 'package:card_slash/service/method.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class ListGistProvider with ChangeNotifier {
+  List<String> string = List();
+
+  List<String> get listStringProvider => string;
+
+  set listStringProvider(List<String> listString) {
+    this.string = listString;
+    ChangeNotifier();
+  }
+}
+
 Widget positions(
     int x, double ftop, String str, Function(DragEndDetails) voidCallBacks) {
   return Positioned(
