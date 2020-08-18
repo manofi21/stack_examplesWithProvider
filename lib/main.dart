@@ -19,16 +19,11 @@ class MyApp extends StatelessWidget {
         return OrientationBuilder(
           builder: (context, orientation) {
             SizeConfig().init(constraints, orientation);
-            return MultiProvider(
-                providers: [
-                  ChangeNotifierProvider(create: (_) => ListGistProvider()),
-                  FutureProvider(create: (_) => getPost())
-                ],
-                child: MaterialApp(
+            return MaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: 'HomeScreen App',
                   home: S_tacks(),
-                ));
+                );
           },
         );
       },
